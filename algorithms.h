@@ -3,8 +3,3 @@
 #include "algorithms/lz77.h"
 #include "algorithms/range.h"
 #include "algorithms/shannon_fano.h"
-
-namespace algorithms
-{
-
-}
