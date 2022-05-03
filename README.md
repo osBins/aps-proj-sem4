@@ -1,12 +1,12 @@
 ## To-Do
 
-| Member                | Algorithm        |
-| --------------------- | ---------------- |
-| Arpit Jain            | Range Coding     |
-| Molshree Sharma       | Huffman          |
-| Nishttha Saharkar     | Shannon Fano     |
-| Simran Ahuja          | Fibonacci        |
-| Yathansh Tewatia      | LZ77             |
+| Member                | Algorithm         |
+| --------------------- | ----------------- |
+| Arpit Jain            | Arithmetic Coding |
+| Molshree Sharma       | Huffman           |
+| Nishttha Saharkar     | Shannon Fano      |
+| Simran Ahuja          | Fibonacci         |
+| Yathansh Tewatia      | LZ77              |
 
 ***
 ## What To do
