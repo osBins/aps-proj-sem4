@@ -46,4 +46,3 @@ All the algorithms in our project will be divided into their own separate header
 
 ## Needs Figuring Out
 * How to write to a file in straight binary format rather than the normal utf-8/ascii
-* 
