@@ -1,4 +1,4 @@
-namespace range{
+namespace arithmetic{
     using namespace std;
     string encode(string text){
 
