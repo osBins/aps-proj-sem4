@@ -1,13 +1,15 @@
 #include <bits/stdc++.h>
-#define SEARCH_BUFFER_LEN 30 // search buffer length = 2^n or n bits
-#define SEARCH_BIT_LEN 5
-#define LA_BUFFER_LEN 7 // look ahead buffer length = 2^n or n bits
-#define LA_BIT_LEN 3
-#define CHAR_BIT_LEN 5 // representing only 26 lower case letters
+
 using namespace std;
 
 namespace lz77
 {
+    const int SEARCH_BIT_LEN = 5;
+    const int SEARCH_BUFFER_LEN = 30;// search buffer length = 2^n or n bits
+    const int LA_BIT_LEN = 3;
+    const int LA_BUFFER_LEN = 7;// look ahead buffer length = 2^n or n bits
+    const int CHAR_BIT_LEN = 5; // representing only 26 lower case letters
+
     using namespace std;
     string encode(string text)
     {
@@ -15,14 +17,6 @@ namespace lz77
     string decode(string text)
     {
     }
-    void printArr(array<char, SEARCH_BUFFER_LEN> &arr)
-    {
-        for (auto x : arr)
-        {
-            cout << x << ".";
-        }
-    }
-
     template <class Type, int len>
     void arrShiftLeft(array<Type, len> &arr)
     {
@@ -90,18 +84,7 @@ namespace lz77
 
             return binS;
         }
-        friend ostream &operator<<(ostream &out, Token &tk);
     };
-    ostream &operator<<(ostream &out, Token &tk)
-    {
-        out
-            << "Token"
-            << " <"
-            << "o:" << tk.offset
-            << ", l:" << tk.length
-            << ", n:" << tk.next
-            << ">";
-    }
 
     struct SearchResult // result of searching the lookAheadBuffer in the searchBuffer
     {
@@ -189,8 +172,6 @@ namespace lz77
                     lookAheadBuffer[fillAmmount] = '\0';
                 }
                 resultVec.push_back(tk);
-                // cout << tk;
-                // cout << endl;
             }
             else
             {
@@ -235,9 +216,6 @@ namespace lz77
                     }
                 }
                 resultVec.push_back(tk);
-                // cout << tk;
-                // cout << endl;
-                // break;
             }
         }
         return resultVec;
@@ -248,7 +226,6 @@ namespace lz77
         string encodedS;
         for (int i = 0; i < tokens.size(); i++)
         {
-            // cout << tokens[i] << endl;
             encodedS += tokens[i].toBinS();
         }
         return encodedS;
