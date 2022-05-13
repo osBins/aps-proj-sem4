@@ -8,7 +8,8 @@ using namespace std;
 
 namespace lz77
 {
-    void printArr(array<char, SEARCH_BUFFER_LEN> &arr)
+    template <int len>
+    void printArr(array<char, len> &arr)
     {
         for (auto x : arr)
         {
@@ -166,7 +167,7 @@ namespace lz77
             fillAmmount++;
             // cout<<"reading "<<s[sItr]<<endl;
         }
-        while (fillAmmount > 0 || sItr < s.length())
+        while (fillAmmount >= 0 || sItr < s.length())
         {
             // printArr<SEARCH_BUFFER_LEN>(searchBuffer);
             // cout << "|";
@@ -203,6 +204,7 @@ namespace lz77
                 {
                     lookAheadBuffer[fillAmmount] = '\0';
                 }
+                // cout << tk << endl;
                 resultVec.push_back(tk);
             }
             else
@@ -255,6 +257,7 @@ namespace lz77
                         fillAmmount--; // as the size of the buffer decreases;
                     }
                 }
+                // cout << tk << endl;
                 resultVec.push_back(tk);
             }
         }
