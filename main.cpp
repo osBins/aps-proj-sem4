@@ -14,12 +14,17 @@ int main()
 
     // testing lz77 encoding
     using namespace lz77;
-    string s = "lol lol lol how are you lol lol lol are you a lol how are you my friend";
-    cout << s << endl;
-    vector<Token> tokens = lz77Encode(s);
-    string encoded = lz77ToString(tokens);
-    cout << "length of original string in binary: "; // << endl;
-    cout << stringToBinS(s).length() << endl;
-    cout << "length of string after compression in binary: "; // << endl;
-    cout << encoded.length() << endl;
+    string s = "hello_hello_lol";
+    cout<<"original string"<<endl;
+    cout<<s<<endl;
+    string encodedS = encode(s);
+    cout<<"encoded string"<<endl;
+    cout<<encodedS<<endl;
+    string decodedS = decode(encodedS);
+    cout<<"decoded string"<<endl;
+    cout<<decodedS<<endl;
+    cout<<endl;
+    comparisonResult cr = compare(s,encodedS);
+    cout<<cr;
+    
 }
