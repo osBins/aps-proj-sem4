@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-#define SEARCH_BUFFER_LEN 64 // search buffer length = 2^n or n bits
+#define SEARCH_BUFFER_LEN 63 // search buffer length = 2^n-1 or n bits
 #define SEARCH_BIT_LEN 6
-#define LA_BUFFER_LEN 16 // look ahead buffer length = 2^n or n bits
+#define LA_BUFFER_LEN 15 // look ahead buffer length = 2^n-1 or n bits
 #define LA_BIT_LEN 4
 #define CHAR_BIT_LEN 8
 using namespace std;
@@ -134,13 +134,14 @@ namespace lz77
                 res.found = true;
                 res.idx = SBItr;
                 int l = 0;
-                while (lookAheadBuffer[LABItr] == searchBuffer[SBItr])
+                while (LABItr < fillAmmount &&
+                       lookAheadBuffer[LABItr] == searchBuffer[SBItr])
                 {
                     l++;
                     LABItr++;
                     SBItr++;
                 }
-                res.len = l;
+                res.len = LABItr;
                 break;
             }
             SBItr++;
@@ -311,6 +312,7 @@ namespace lz77
 
             tk.next = asciiChar;
             // cout<<charB.to_string()<<endl;
+            // cout<<tk<<endl;
             return make_pair(tk, sItr);
         }
         else // token is encoded offset,length,ascii value of next char
@@ -334,7 +336,7 @@ namespace lz77
             tk.offset = offset;
             tk.length = length;
             tk.next = asciiChar;
-
+            // cout<<tk<<endl;
             return make_pair(tk, sItr);
         }
     }
@@ -345,6 +347,7 @@ namespace lz77
         while (sItr < s.length())
         {
             pair<Token, int> tokenRes = decodeToken(sItr, s);
+            // cout<<tokenRes.first<<endl;
             sItr = tokenRes.second;
             resVec.push_back(tokenRes.first);
         }
