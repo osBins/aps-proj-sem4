@@ -11,6 +11,16 @@ bool charToBool(char c)
     return c == '0' ? 0 : 1;
 }
 
+int get_file_size(std::string filename) // path to file
+{
+    FILE *p_file = NULL;
+    p_file = fopen(filename.c_str(), "rb");
+    fseek(p_file, 0, SEEK_END);
+    int size = ftell(p_file);
+    fclose(p_file);
+    return size;
+}
+
 string readTextFile(string fileName)
 {
     fstream file;
@@ -30,6 +40,21 @@ string readTextFile(string fileName)
     }
     // cout<<text<<endl;
     return text;
+}
+
+string readBinFile(string filename)
+{
+    size_t size = get_file_size(filename);
+    fstream file;
+    file.open(filename, ios::in | ios::binary);
+    char *binS = (char *)malloc(size * (sizeof(char)));
+    file.read(binS, size);
+    string s;
+    for (int i = 0; i < size; i++)
+    {
+        s.push_back(binS[i]);
+    }
+    return s;
 }
 
 char binSToChar(string s)
@@ -86,10 +111,8 @@ string byteStrToBinStr(string byteS)
 void writeToFile(string filename, string s)
 {
     ofstream file;
-    file.open(filename, ios::out);
-    if (file.is_open())
-    {
-        file << s;
-        file.close();
-    }
+    file.open(filename, ios::out | ios::binary);
+    const char *binS = s.c_str();
+    size_t sizeBinS = s.size();
+    file.write(binS, sizeBinS);
 }
