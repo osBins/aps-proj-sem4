@@ -1,0 +1,461 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    background-image: url("./bg1.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    font-family: "Julius Sans One", sans-serif;
+}
+
+h1 {
+    font-family: monospace;
+    font-size: 4rem;
+    font-weight: 100;
+    letter-spacing: 5px;
+    font-family: "Julius Sans One", sans-serif;
+    text-transform: uppercase;
+}
+
+img {
+    display: inline-block;
+}
+
+button {
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(10px);
+    outline: none;
+    border: none;
+    width: auto;
+    height: auto;
+    margin: 0.5rem;
+    padding: 0.5rem 2rem;
+    box-shadow: 3px 5px 10px rgba(95, 95, 95, 0.3);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    transition: all 100ms;
+}
+
+button:hover {
+    background-color: rgba(47, 47, 48, 0.1);
+    transform: scale(1.1);
+}
+
+button:active {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+label {
+    display: block;
+    margin: 1rem;
+    text-align: left;
+}
+
+input {
+    display: block;
+    margin: 1rem;
+    height: 1.5rem;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(10px);
+    outline: none;
+    border: none;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    box-shadow: 3px 5px 10px rgba(95, 95, 95, 0.3);
+    padding: 5px 1rem;
+}
+
+.main {
+    width: 60vw;
+    height: 65vh;
+    display: block;
+}
+
+.intro {
+    margin-top: 3rem;
+}
+
+.items_m {
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: 7px 10px 20px rgba(95, 95, 95, 0.5);
+    transition: all 400ms;
+    z-index: 2;
+    position: relative;
+}
+
+.items {
+    width: 10%;
+    height: calc(100% - 2rem);
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 1rem;
+    box-shadow: 7px 10px 20px rgba(95, 95, 95, 0.5);
+    transition: all 400ms;
+    z-index: 2;
+    position: relative;
+}
+
+.hamburger {
+    width: 2vw;
+    opacity: 50%;
+}
+
+.hamburger span {
+    display: block;
+    margin: 0.5rem 0rem;
+    width: 100%;
+    height: 7px;
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 5px;
+    box-shadow: 3px 5px 10px rgba(95, 95, 95, 0.3);
+    transition: all 100ms;
+}
+
+.hamburger:hover {
+    transform: scale(1.1);
+    opacity: 100%;
+}
+
+.home,
+.person,
+.code,
+.contact {
+    width: 2vw;
+}
+
+.home-span,
+.person-span,
+.code-span,
+.contact-span {
+    display: none;
+    margin-left: 1rem;
+    cursor: alias;
+}
+
+.home-div,
+.person-div,
+.code-div,
+.contact-div {
+    transition: all 100ms;
+    opacity: 60%;
+}
+
+.home-div:hover,
+.person-div:hover,
+.code-div:hover,
+.contact-div:hover {
+    transform: scale(1.1);
+    opacity: 100%;
+}
+
+.main-card {
+    width: 90%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 7px 10px 20px rgba(95, 95, 95, 0.5);
+    position: relative;
+    overflow: hidden;
+    left: calc(10% + 1rem);
+    top: -100%;
+    transition: all 400ms;
+}
+
+.home-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
+.buttons {
+    width: 70%;
+    height: 20%;
+    border-top: 2px solid black;
+    padding-top: 0.5rem;
+}
+
+.about-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
+.about-me-body {
+    width: 85%;
+    margin-bottom: 7%;
+}
+
+.projects-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.projects {
+    width: 100%;
+    height: 90%;
+    margin-bottom: 2%;
+    overflow: auto;
+}
+.project{
+    width: 85%;
+    height: auto;
+    margin: 1rem;
+    padding: 5px;
+    margin-left: 10%;
+    display: flex;
+    justify-content: space-between;
+    border: grey 2px solid;
+    border-radius: 5px;
+    position: relative;
+}
+
+.project-image {
+    width: 250px;
+    height: auto;
+    margin: 2%;
+    background-color: azure;
+    border-radius: 5px;
+}
+
+.project-description {
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
+
+.project-title {
+    margin: 1rem;
+    font-weight: 600;
+}
+
+.project-text {
+    font-size: 1rem;
+}
+
+.project-buttons {
+    width: 100%;
+    margin-top: 5%;
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
+.contact-form-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.message-box {
+    display: block;
+    margin: 1rem;
+    height: 20%;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(10px);
+    outline: none;
+    border: none;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    box-shadow: 3px 5px 10px rgba(95, 95, 95, 0.3);
+    padding: 5px 1rem;
+    resize: none;
+}
+
+.sent-notification {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.notification-message {
+    margin: 1rem;
+}
+
+.close-button {
+    margin: 1rem;
+    display: block;
+}
+
+@media (max-width: 1400px) {
+    .main {
+        width: 75vw;
+        height: 75vh;
+    }
+    .buttons {
+        width: 70%;
+    }
+}
+
+@media (max-width: 1200px) {
+    body {
+        font-size: 1rem;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    .main {
+        width: 85vw;
+        height: 85vh;
+    }
+    .hamburger,
+    .home,
+    .person,
+    .code,
+    .contact {
+        width: 3vw;
+    }
+    .buttons {
+        width: 70%;
+    }
+}
+
+@media (max-width: 1000px) and (max-height: 800px) {
+    body {
+        font-size: 0.7rem;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    button {
+        margin: 0.2rem;
+        padding: 0.2rem 1rem;
+        font-size: 0.7rem;
+    }
+    .main {
+        width: 90vw;
+        height: 95vh;
+    }
+    .hamburger,
+    .home,
+    .person,
+    .code,
+    .contact {
+        width: 3vw;
+    }
+    .hamburger span {
+        height: 3px;
+        margin: 0.3rem 0rem;
+    }
+    .buttons {
+        width: 70%;
+    }
+    .project-text {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 800px) and (orientation: portrait) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .main {
+        width: 90vw;
+        height: 95vh;
+    }
+    .items {
+        display: none;
+    }
+    .items_m {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        margin: 0px;
+        width: calc(100% - 2rem);
+        height: 10%;
+    }
+    .hamburger span {
+        height: 3px;
+        margin: 0.3rem 0rem;
+    }
+    .hamburger,
+    .home,
+    .person,
+    .code,
+    .contact {
+        width: 5vw;
+    }
+    .main-card {
+        position: static;
+        top: 0;
+        margin: 0px;
+        height: 85%;
+        width: 100%;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 0px;
+    }
+    .chat-app,
+    .mnist-classifier,
+    .music-player,
+    .portfolio {
+        flex-direction: column;
+        margin: 1rem auto;
+        height: auto;
+        align-items: center;
+        position: relative;
+    }
+    .project-image {
+        width: 95%;
+        height: 30vh;
+    }
+    .project-description {
+        width: 95%;
+    }
+    .project-buttons {
+        position: static;
+        margin-top: 5vh;
+        margin-bottom: 1rem;
+    }
+}
