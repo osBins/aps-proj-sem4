@@ -1,5 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
+// fwd declarations
+// struct comparisonResult;
+// comparisonResult getCompressionResult(
+//     const string &original,
+//     const string &encoded);
 
 char boolToChar(bool b)
 {
@@ -115,4 +120,48 @@ void writeToFile(string filename, string s)
     const char *binS = s.c_str();
     size_t sizeBinS = s.size();
     file.write(binS, sizeBinS);
+}
+
+comparisonResult compressFile(string filename, string algo)
+{
+    string fileContents = readBinFile(filename);
+    string encodedS;
+    string ext;
+    if (algo == "lz77")
+    {
+        encodedS = lz77::encode(fileContents);
+    }
+    else if (algo == "huff")
+    {
+        encodedS = huffman::encode(fileContents);
+    }
+    else if (algo == "fano")
+    {
+        encodedS = shannon_fanno::encode(fileContents);
+    }
+    else if (algo == "metic")
+    {
+        encodedS = arithmetic::encode(fileContents);
+    }
+
+    // add option for diagram coding
+
+    comparisonResult cr = getCompressionResult(fileContents, encodedS);
+    string byteS = binStrToByteStr(encodedS);
+
+    string outfile;
+    auto it = filename.rbegin();
+    for (; it != filename.rend(); it++)
+    {
+        if (*it == '.')
+            break;
+    }
+    for (; it != filename.rend(); it++)
+    {
+        outfile.push_back(*it);
+    }
+    reverse(outfile.begin(), outfile.end());
+    outfile += algo;
+    writeToFile(outfile, byteS);
+    return cr;
 }

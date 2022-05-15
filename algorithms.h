@@ -3,7 +3,9 @@
 #include "algorithms/lz77.h"
 #include "algorithms/arithmetic.h"
 #include "algorithms/shannon_fano.h"
-#include "utility.h"
+
+//fwd declarations
+char boolToChar(bool b);
 
 string stringToBinS(string s)
 {
