@@ -1,460 +1,408 @@
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: monospace;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-    background-image: url("./bg1.jpg");
-    background-size: cover;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100vh;
-    font-family: "Julius Sans One", sans-serif;
-}
+#include <bits/stdc++.h>
+#define SEARCH_BUFFER_LEN 63 // search buffer length = 2^n-1 or n bits
+#define SEARCH_BIT_LEN 6
+#define LA_BUFFER_LEN 15 // look ahead buffer length = 2^n-1 or n bits
+#define LA_BIT_LEN 4
+#define CHAR_BIT_LEN 8
+using namespace std;
 
-h1 {
-    font-family: monospace;
-    font-size: 4rem;
-    font-weight: 100;
-    letter-spacing: 5px;
-    font-family: "Julius Sans One", sans-serif;
-    text-transform: uppercase;
-}
-
-img {
-    display: inline-block;
-}
-
-button {
-    background-color: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(10px);
-    outline: none;
-    border: none;
-    width: auto;
-    height: auto;
-    margin: 0.5rem;
-    padding: 0.5rem 2rem;
-    box-shadow: 3px 5px 10px rgba(95, 95, 95, 0.3);
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    border-radius: 5px;
-    transition: all 100ms;
-}
-
-button:hover {
-    background-color: rgba(47, 47, 48, 0.1);
-    transform: scale(1.1);
-}
-
-button:active {
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-label {
-    display: block;
-    margin: 1rem;
-    text-align: left;
-}
-
-input {
-    display: block;
-    margin: 1rem;
-    height: 1.5rem;
-    background-color: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(10px);
-    outline: none;
-    border: none;
-    letter-spacing: 2px;
-    border-radius: 5px;
-    box-shadow: 3px 5px 10px rgba(95, 95, 95, 0.3);
-    padding: 5px 1rem;
-}
-
-.main {
-    width: 60vw;
-    height: 65vh;
-    display: block;
-}
-
-.intro {
-    margin-top: 3rem;
-}
-
-.items_m {
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    display: none;
-    align-items: center;
-    padding: 1rem;
-    box-shadow: 7px 10px 20px rgba(95, 95, 95, 0.5);
-    transition: all 400ms;
-    z-index: 2;
-    position: relative;
-}
-
-.items {
-    width: 10%;
-    height: calc(100% - 2rem);
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 1rem;
-    box-shadow: 7px 10px 20px rgba(95, 95, 95, 0.5);
-    transition: all 400ms;
-    z-index: 2;
-    position: relative;
-}
-
-.hamburger {
-    width: 2vw;
-    opacity: 50%;
-}
-
-.hamburger span {
-    display: block;
-    margin: 0.5rem 0rem;
-    width: 100%;
-    height: 7px;
-    background-color: rgba(0, 0, 0, 1);
-    border-radius: 5px;
-    box-shadow: 3px 5px 10px rgba(95, 95, 95, 0.3);
-    transition: all 100ms;
-}
-
-.hamburger:hover {
-    transform: scale(1.1);
-    opacity: 100%;
-}
-
-.home,
-.person,
-.code,
-.contact {
-    width: 2vw;
-}
-
-.home-span,
-.person-span,
-.code-span,
-.contact-span {
-    display: none;
-    margin-left: 1rem;
-    cursor: alias;
-}
-
-.home-div,
-.person-div,
-.code-div,
-.contact-div {
-    transition: all 100ms;
-    opacity: 60%;
-}
-
-.home-div:hover,
-.person-div:hover,
-.code-div:hover,
-.contact-div:hover {
-    transform: scale(1.1);
-    opacity: 100%;
-}
-
-.main-card {
-    width: 90%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    box-shadow: 7px 10px 20px rgba(95, 95, 95, 0.5);
-    position: relative;
-    overflow: hidden;
-    left: calc(10% + 1rem);
-    top: -100%;
-    transition: all 400ms;
-}
-
-.home-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: space-around;
-    width: 100%;
-    height: 100%;
-}
-
-.buttons {
-    width: 70%;
-    height: 20%;
-    border-top: 2px solid black;
-    padding-top: 0.5rem;
-}
-
-.about-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: space-around;
-    width: 100%;
-    height: 100%;
-}
-
-.about-me-body {
-    width: 85%;
-    margin-bottom: 7%;
-}
-
-.projects-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-}
-
-.projects {
-    width: 100%;
-    height: 90%;
-    margin-bottom: 2%;
-    overflow: auto;
-}
-.project{
-    width: 85%;
-    height: auto;
-    margin: 1rem;
-    padding: 5px;
-    margin-left: 10%;
-    display: flex;
-    justify-content: space-between;
-    border: grey 2px solid;
-    border-radius: 5px;
-    position: relative;
-}
-
-.project-image {
-    width: 250px;
-    height: auto;
-    margin: 2%;
-    background-color: azure;
-    border-radius: 5px;
-}
-
-.project-description {
-    width: 50%;
-    height: 100%;
-    position: relative;
-}
-
-.project-title {
-    margin: 1rem;
-    font-weight: 600;
-}
-
-.project-text {
-    font-size: 1rem;
-}
-
-.project-buttons {
-    width: 100%;
-    margin-top: 5%;
-}
-
-.contact-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: space-around;
-    width: 100%;
-    height: 100%;
-}
-
-.contact-form-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-}
-
-.message-box {
-    display: block;
-    margin: 1rem;
-    height: 20%;
-    background-color: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(10px);
-    outline: none;
-    border: none;
-    letter-spacing: 2px;
-    border-radius: 5px;
-    box-shadow: 3px 5px 10px rgba(95, 95, 95, 0.3);
-    padding: 5px 1rem;
-    resize: none;
-}
-
-.sent-notification {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: space-around;
-    padding: 1rem;
-    border-radius: 5px;
-}
-
-.notification-message {
-    margin: 1rem;
-}
-
-.close-button {
-    margin: 1rem;
-    display: block;
-}
-
-@media (max-width: 1400px) {
-    .main {
-        width: 75vw;
-        height: 75vh;
+namespace lz77
+{
+    template <int len>
+    void printArr(array<char, len> &arr)
+    {
+        for (auto x : arr)
+        {
+            if (x == '\n')
+                cout << "\\n"
+                     << ".";
+            cout << x << ".";
+        }
     }
-    .buttons {
-        width: 70%;
+
+    template <class Type, int len>
+    void arrShiftLeft(array<Type, len> &arr)
+    {
+        for (int i = 1; i < len; i++)
+        {
+            arr[i - 1] = arr[i];
+        }
+    }
+
+    char boolToChar(bool b)
+    {
+        return b ? '1' : '0';
+    }
+
+    int customChar(char a)
+    {
+        return a - 97;
+    }
+
+    struct Token
+    {
+        int offset;
+        int length;
+        char next;
+        Token()
+        {
+            offset = 0;
+            length = 0;
+            next = '\0';
+        }
+        string toBinS() // serilize to binary
+        {
+            /*
+                1 bit for denoting if match was found, 0 for not found and 1 for found
+                n bit offset -> max offset = 2^n
+                n bit length -> max len = 2^n
+                8 bit next char -> full bin seq
+            */
+            bitset<SEARCH_BIT_LEN> offsetB(offset);
+            bitset<LA_BIT_LEN> lengthB(length);
+            bitset<CHAR_BIT_LEN> charB(next);
+            string binS; // final binary representation of token
+
+            if (offset == 0) // did not find a match hence put 0 infront of normal ascii representation
+            {
+                binS += '0';
+                for (int i = 0; i < charB.size(); i++)
+                {
+                    binS.push_back(boolToChar(charB[i]));
+                }
+            }
+            else // found a match hence put 1 before the encoded information
+            {
+                binS += '1';
+                for (int i = 0; i < offsetB.size(); i++)
+                {
+                    binS.push_back(boolToChar(offsetB[i]));
+                }
+
+                for (int i = 0; i < lengthB.size(); i++)
+                {
+                    binS.push_back(boolToChar(lengthB[i]));
+                }
+
+                for (int i = 0; i < charB.size(); i++)
+                {
+                    binS.push_back(boolToChar(charB[i]));
+                }
+            }
+            return binS;
+        }
+        friend ostream &operator<<(ostream &out, Token &tk);
+    };
+    ostream &operator<<(ostream &out, Token &tk)
+    {
+        out
+            << "Token"
+            << " <"
+            << "o:"
+            << tk.offset
+            << ", l:"
+            << tk.length
+            << ", n:"
+            << (tk.next == '\n' ? "\\n" : "" + tk.next)
+            << ">";
+    }
+
+    struct SearchResult // result of searching the lookAheadBuffer in the searchBuffer
+    {
+        bool found;
+        int idx;
+        int len;
+        SearchResult()
+        {
+            found = false;
+            idx = INT_MAX;
+            len = 0;
+        }
+    };
+
+    SearchResult search(
+        const array<char, SEARCH_BUFFER_LEN> &searchBuffer,
+        const array<char, LA_BUFFER_LEN> &lookAheadBuffer,
+        int fillAmmount)
+    {
+        int LABItr = 0; // lookaheadbuffer iterator
+        int SBItr = 0;  // searchbuffer iterator
+        SearchResult res;
+        while (
+            SBItr < searchBuffer.size() &&
+            LABItr < fillAmmount)
+        {
+            if (lookAheadBuffer[LABItr] == searchBuffer[SBItr])
+            {
+                res.found = true;
+                res.idx = SBItr;
+                int l = 0;
+                while (LABItr < fillAmmount &&
+                       lookAheadBuffer[LABItr] == searchBuffer[SBItr])
+                {
+                    l++;
+                    LABItr++;
+                    SBItr++;
+                }
+                res.len = l;
+                break;
+            }
+            SBItr++;
+        }
+        return res;
+    }
+
+    vector<Token> lz77Encode(string s)
+    {
+        // s+="##";
+        array<char, SEARCH_BUFFER_LEN> searchBuffer = {'\0'};
+        array<char, LA_BUFFER_LEN> lookAheadBuffer = {'\0'};
+        vector<Token> resultVec;
+        int fillAmmount = 0; // fill of the lookAheadBuffer
+        int sItr = 0;
+        int tempItr = 0;
+        for ( // for loop for initializing the lookAheadBuffer
+            ;
+            sItr < s.length() &&
+            tempItr < lookAheadBuffer.size();
+            sItr++)
+        {
+            lookAheadBuffer[tempItr] = s[sItr];
+            tempItr++;
+            fillAmmount++;
+            // cout<<"reading "<<s[sItr]<<endl;
+        }
+        while (fillAmmount > 1)
+        {
+            // printArr<SEARCH_BUFFER_LEN>(searchBuffer);
+            // cout << "|";
+            // printArr<LA_BUFFER_LEN>(lookAheadBuffer);
+            // cout << endl;
+            SearchResult sRes = search(
+                searchBuffer,
+                lookAheadBuffer,
+                fillAmmount);
+            bool found = sRes.found;
+            int idx = sRes.idx;
+            int length = sRes.len;
+            // cout<<"idx: "<<idx<<" length: "<<length<<endl;
+            if (!found)
+            {
+                Token tk;
+                tk.length = 0;
+                tk.next = lookAheadBuffer[0];
+                tk.offset = 0;
+
+                arrShiftLeft<char, searchBuffer.size()>(searchBuffer);
+                searchBuffer[searchBuffer.size() - 1] = lookAheadBuffer[0];
+                arrShiftLeft<char, lookAheadBuffer.size()>(lookAheadBuffer);
+                fillAmmount--;
+
+                if (sItr < s.length())
+                {
+                    lookAheadBuffer[fillAmmount] = s[sItr];
+                    // cout<<"reading "<<s[sItr]<<endl;
+                    sItr++;
+                    fillAmmount++;
+                }
+                else
+                {
+                    lookAheadBuffer[fillAmmount] = '\0';
+                }
+                // cout << tk << endl;
+                resultVec.push_back(tk);
+            }
+            else
+            {
+                Token tk;
+                tk.length = length;
+                tk.offset = searchBuffer.size() - idx;
+
+                for (int shiftItr = 0; shiftItr < length; shiftItr++) // left shift searchBuffer and lookAheadBuffer
+                {
+                    arrShiftLeft<char, searchBuffer.size()>(searchBuffer);
+
+                    // printArr<lookAheadBuffer.size()>(lookAheadBuffer);
+                    // cout<<endl;
+
+                    searchBuffer[searchBuffer.size() - 1] = lookAheadBuffer[0];
+                    arrShiftLeft<char, lookAheadBuffer.size()>(lookAheadBuffer);
+
+                    if (sItr < s.length()) // if more elements left in the string
+                    {
+                        fillAmmount--; // as left shifted the lookAheadBuffer
+                        lookAheadBuffer[fillAmmount] = s[sItr];
+                        // cout<<"reading "<<s[sItr]<<endl;
+                        sItr++;        // increment the string iterator
+                        fillAmmount++; // one element added to the lookAheadBuffer
+                    }
+                    else // no elements left in the string
+                    {
+                        lookAheadBuffer[fillAmmount] = '\0';
+                        fillAmmount--; // as the size of the buffer decreases;
+                    }
+                }
+                tk.next = lookAheadBuffer[0];
+                { // one extra shift left on both buffers
+                    arrShiftLeft<char, searchBuffer.size()>(searchBuffer);
+                    searchBuffer[searchBuffer.size() - 1] = lookAheadBuffer[0];
+                    arrShiftLeft<char, lookAheadBuffer.size()>(lookAheadBuffer);
+
+                    if (sItr <= s.length()) // if more elements left in the string
+                    {
+                        fillAmmount--; // as left shifted the lookAheadBuffer
+                        lookAheadBuffer[fillAmmount] = s[sItr];
+                        // cout<<"reading "<<s[sItr]<<endl;
+                        sItr++;        // increment the string iterator
+                        fillAmmount++; // one element added to the lookAheadBuffer
+                    }
+                    else // no elements left in the string
+                    {
+                        lookAheadBuffer[fillAmmount] = '\0';
+                        fillAmmount--; // as the size of the buffer decreases;
+                    }
+                }
+                // cout << tk << endl;
+                resultVec.push_back(tk);
+            }
+        }
+        // printArr<SEARCH_BUFFER_LEN>(searchBuffer);
+        // cout << "|";
+        // printArr<LA_BUFFER_LEN>(lookAheadBuffer);
+        // cout << endl;
+        return resultVec;
+    }
+
+    string lz77ToStringEncode(vector<Token> tokens)
+    {
+        string encodedS;
+        for (int i = 0; i < tokens.size(); i++)
+        {
+            encodedS += tokens[i].toBinS();
+        }
+        return encodedS;
+    }
+
+    template <int len>
+    bitset<len> readBits(int sItr, string s)
+    {
+        // cout<<s[sItr]<<endl;
+        bitset<len> bits;
+        int bitsItr = 0;
+        int endSItr = sItr + len;
+        for (; sItr < endSItr; sItr++)
+        {
+            // cout<<s[sItr];
+            bits[bitsItr] = (bool)(s[sItr] - 48);
+            bitsItr++;
+        }
+        // cout<<endl;
+        return bits;
+    }
+
+    pair<Token, int> decodeToken(int sItr, string s) // return the token and the new string itr
+    {
+        // cout<<sItr<<endl;
+        if (s[sItr] == '0') // token is in ascii value
+        {
+            sItr++;
+            bitset<CHAR_BIT_LEN> charB = readBits<CHAR_BIT_LEN>(sItr, s);
+            sItr += CHAR_BIT_LEN;
+
+            Token tk;
+            tk.length = 0;
+            tk.offset = 0;
+            char asciiChar = (char)(charB.to_ulong());
+
+            tk.next = asciiChar;
+            // cout<<charB.to_string()<<endl;
+            // cout<<tk<<endl;
+            return make_pair(tk, sItr);
+        }
+        else // token is encoded offset,length,ascii value of next char
+        {    // offset, length, next char
+
+            sItr++;
+
+            bitset<SEARCH_BIT_LEN> offsetB = readBits<SEARCH_BIT_LEN>(sItr, s);
+            sItr += SEARCH_BIT_LEN;
+            int offset = offsetB.to_ulong();
+
+            bitset<LA_BIT_LEN> lengthB = readBits<LA_BIT_LEN>(sItr, s);
+            sItr += LA_BIT_LEN;
+            int length = lengthB.to_ulong();
+
+            bitset<CHAR_BIT_LEN> charB = readBits<CHAR_BIT_LEN>(sItr, s);
+            sItr += CHAR_BIT_LEN;
+            char asciiChar = (char)(charB.to_ulong());
+
+            Token tk;
+            tk.offset = offset;
+            tk.length = length;
+            tk.next = asciiChar;
+            // cout<<tk<<endl;
+            return make_pair(tk, sItr);
+        }
+    }
+    vector<Token> stringTolz77(string s)
+    {
+        vector<Token> resVec;
+        int sItr = 0;
+        while (sItr < s.length())
+        {
+            pair<Token, int> tokenRes = decodeToken(sItr, s);
+            // cout<<tokenRes.first<<endl;
+            sItr = tokenRes.second;
+            resVec.push_back(tokenRes.first);
+        }
+        return resVec;
+    }
+
+    string lz77ToStringDecode(vector<Token> tokens)
+    {
+        string resS;
+        int tkItr = 0;
+        while (tkItr < tokens.size())
+        {
+            Token tk = tokens[tkItr];
+            if (tk.length == 0)
+            {
+                resS.push_back(tk.next);
+                tkItr++;
+                continue;
+            }
+            else
+            {
+                int itr = resS.length();
+                for (int i = 0; i < tk.offset; i++)
+                {
+                    itr--;
+                }
+                string temp;
+                for (int i = 0; i < tk.length; i++)
+                {
+                    temp.push_back(resS[itr]);
+                    itr++;
+                }
+                resS += temp;
+                resS.push_back(tk.next);
+                tkItr++;
+            }
+        }
+
+        return resS;
+    }
+    string encode(string s)
+    {
+        vector<Token> tokens = lz77Encode(s);
+        string encoded = lz77ToStringEncode(tokens);
+        return encoded;
+    }
+
+    string decode(string s)
+    {
+        vector<Token> decodedTokens = stringTolz77(s);
+        string decoded = lz77ToStringDecode(decodedTokens);
+        return decoded;
     }
 }
-
-@media (max-width: 1200px) {
-    body {
-        font-size: 1rem;
-    }
-    h1 {
-        font-size: 2rem;
-    }
-    .main {
-        width: 85vw;
-        height: 85vh;
-    }
-    .hamburger,
-    .home,
-    .person,
-    .code,
-    .contact {
-        width: 3vw;
-    }
-    .buttons {
-        width: 70%;
-    }
-}
-
-@media (max-width: 1000px) and (max-height: 800px) {
-    body {
-        font-size: 0.7rem;
-    }
-    h1 {
-        font-size: 1.5rem;
-    }
-    button {
-        margin: 0.2rem;
-        padding: 0.2rem 1rem;
-        font-size: 0.7rem;
-    }
-    .main {
-        width: 90vw;
-        height: 95vh;
-    }
-    .hamburger,
-    .home,
-    .person,
-    .code,
-    .contact {
-        width: 3vw;
-    }
-    .hamburger span {
-        height: 3px;
-        margin: 0.3rem 0rem;
-    }
-    .buttons {
-        width: 70%;
-    }
-    .project-text {
-        font-size: 0.7rem;
-    }
-}
-
-@media (max-width: 800px) and (orientation: portrait) {
-    body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .main {
-        width: 90vw;
-        height: 95vh;
-    }
-    .items {
-        display: none;
-    }
-    .items_m {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-        border-top-right-radius: 5px;
-        border-top-left-radius: 5px;
-        margin: 0px;
-        width: calc(100% - 2rem);
-        height: 10%;
-    }
-    .hamburger span {
-        height: 3px;
-        margin: 0.3rem 0rem;
-    }
-    .hamburger,
-    .home,
-    .person,
-    .code,
-    .contact {
-        width: 5vw;
-    }
-    .main-card {
-        position: static;
-        top: 0;
-        margin: 0px;
-        height: 85%;
-        width: 100%;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        border-top-right-radius: 0px;
-    }
-    .chat-app,
-    .mnist-classifier,
-    .music-player,
-    .portfolio {
-        flex-direction: column;
-        margin: 1rem auto;
-        height: auto;
-        align-items: center;
-        position: relative;
-    }
-    .project-image {
-        width: 95%;
-        height: 30vh;
-    }
-    .project-description {
-        width: 95%;
-    }
-    .project-buttons {
-        position: static;
-        margin-top: 5vh;
-        margin-bottom: 1rem;
-    }

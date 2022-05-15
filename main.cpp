@@ -18,16 +18,16 @@ int main()
     // cout<<text<<endl;
     string encodedS = encode(text);
     // cout << encodedS << endl;
-    comparisonResult cr = getCompressionResult(text,encodedS);
-    cout<<cr<<endl;
+    comparisonResult cr = getCompressionResult(text, encodedS);
+    cout << cr << endl;
 
     string byteS = binStrToByteStr(encodedS);
-    writeToFile("test.lz77",byteS);
+    writeToFile("test.lz77", byteS);
 
     byteS = readBinFile("test.lz77");
     string binS = byteStrToBinStr(byteS);
     // cout<<binS<<endl;
-    string decodedS = decode(binS);
+    string decodedS = decode(encodedS);
     // cout<<decodedS<<endl;
-    writeToFile("decoded.txt",decodedS);
+    writeToFile("decoded.txt", decodedS);
 }

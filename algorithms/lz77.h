@@ -13,6 +13,9 @@ namespace lz77
     {
         for (auto x : arr)
         {
+            if (x == '\n')
+                cout << "\\n"
+                     << ".";
             cout << x << ".";
         }
     }
@@ -100,7 +103,7 @@ namespace lz77
             << ", l:"
             << tk.length
             << ", n:"
-            << tk.next
+            << (tk.next == '\n' ? "\\n" : "" + tk.next)
             << ">";
     }
 
@@ -141,7 +144,7 @@ namespace lz77
                     LABItr++;
                     SBItr++;
                 }
-                res.len = LABItr;
+                res.len = l;
                 break;
             }
             SBItr++;
@@ -151,6 +154,7 @@ namespace lz77
 
     vector<Token> lz77Encode(string s)
     {
+        // s+="##";
         array<char, SEARCH_BUFFER_LEN> searchBuffer = {'\0'};
         array<char, LA_BUFFER_LEN> lookAheadBuffer = {'\0'};
         vector<Token> resultVec;
@@ -168,7 +172,7 @@ namespace lz77
             fillAmmount++;
             // cout<<"reading "<<s[sItr]<<endl;
         }
-        while (fillAmmount >= 0 || sItr < s.length())
+        while (fillAmmount > 1)
         {
             // printArr<SEARCH_BUFFER_LEN>(searchBuffer);
             // cout << "|";
@@ -224,7 +228,7 @@ namespace lz77
                     searchBuffer[searchBuffer.size() - 1] = lookAheadBuffer[0];
                     arrShiftLeft<char, lookAheadBuffer.size()>(lookAheadBuffer);
 
-                    if (sItr <= s.length()) // if more elements left in the string
+                    if (sItr < s.length()) // if more elements left in the string
                     {
                         fillAmmount--; // as left shifted the lookAheadBuffer
                         lookAheadBuffer[fillAmmount] = s[sItr];
@@ -243,10 +247,10 @@ namespace lz77
                     arrShiftLeft<char, searchBuffer.size()>(searchBuffer);
                     searchBuffer[searchBuffer.size() - 1] = lookAheadBuffer[0];
                     arrShiftLeft<char, lookAheadBuffer.size()>(lookAheadBuffer);
-                    fillAmmount--; // as left shifted the lookAheadBuffer
 
                     if (sItr <= s.length()) // if more elements left in the string
                     {
+                        fillAmmount--; // as left shifted the lookAheadBuffer
                         lookAheadBuffer[fillAmmount] = s[sItr];
                         // cout<<"reading "<<s[sItr]<<endl;
                         sItr++;        // increment the string iterator
