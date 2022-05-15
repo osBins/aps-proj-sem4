@@ -1,0 +1,6 @@
+*.exe
+*.lz77
+*.huff
+*.fano
+*.metic
+test.txt
