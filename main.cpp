@@ -19,7 +19,7 @@ comparisonResult compressFile(string filename, string algo)
     }
     else if (algo == "fano")
     {
-        encodedS = shannon_fanno::encode(fileContents);
+        // encodedS = shannon_fanno::encode(fileContents);
     }
     else if (algo == "metic")
     {
