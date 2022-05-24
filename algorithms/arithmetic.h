@@ -75,7 +75,9 @@ namespace arithmetic
         {
             itr->second += prob;
             prob = itr->second;
-            // cout << itr->second << "\n"; // debugger
+            
+            /* Debugger */
+            // cout << itr->second << "\n";
         }
     }
 
