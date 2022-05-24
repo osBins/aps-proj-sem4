@@ -1,10 +1,35 @@
-namespace arithmetic
-{
 #define CHAR_SIZE 1
 #define DEFAULT_LOWER_LIMIT 0
 #define DEFAULT_UPPER_LIMIT 1
-    using namespace std;
+using namespace std;
+namespace arithmetic
+{
+    struct probChar
+    {
+        string c;
+        float p;
+    };
     const int PRECISION = 5;
+    map<string, float> charProb = {
+        make_pair("0", 0),
+        make_pair("a", 0.4),
+        make_pair("b", 0.2),
+        make_pair("c", 0.2),
+        make_pair("d", 0.2)};
+
+    /*
+    EVERYTHING BREAKS METHODICALLY IF YOU REMOVE THE IMMEDIATELY NEXT LINE OF CODE
+    (but it still somehow gives the right encoded value????)
+    */
+    // charProb["0"] = 0; //âœ¨ MAGIC âœ¨
+
+    // charProb["a"] = 0.4;
+    // charProb["b"] = 0.2;
+    // charProb["c"] = 0.2;
+    // charProb["d"] = 0.2;
+    int n = 5;
+
+    vector<probChar> charProbArr;
 
     int floatToInt(float test)
     {
@@ -55,19 +80,13 @@ namespace arithmetic
         float lowLim, upLim;
     };
 
-    struct probChar
-    {
-        string c;
-        float p;
-    };
-
     string getString(char x)
     {
         string s(CHAR_SIZE, x);
         return s;
     }
 
-    void cumProb(map<string, float> &charProb)
+    void cumProb()
     {
         map<string, float>::iterator itr;
         float prob = 0;
@@ -75,13 +94,13 @@ namespace arithmetic
         {
             itr->second += prob;
             prob = itr->second;
-            
+
             /* Debugger */
             // cout << itr->second << "\n";
         }
     }
 
-    void createCumProbArr(map<string, float> charProb, vector<probChar> &charProbArr)
+    void createCumProbArr()
     {
         map<string, float>::iterator itr;
         int i = 0;
@@ -98,7 +117,7 @@ namespace arithmetic
         }
     }
 
-    void fillLimitsArr(vector<probChar> &dynamicLimitsArr, vector<probChar> charProbArr, int n)
+    void fillLimitsArr(vector<probChar> &dynamicLimitsArr)
     {
         for (int i = 0; i < n; i++)
         {
@@ -108,12 +127,12 @@ namespace arithmetic
         }
     }
 
-    string encode(string text, map<string, float> charProb, vector<probChar> &charProbArr, int n)
+    string encode(string text)
     {
         float enc;
         limits lim = {DEFAULT_LOWER_LIMIT, DEFAULT_UPPER_LIMIT};
-        cumProb(charProb);
-        createCumProbArr(charProb, charProbArr);
+        cumProb();
+        createCumProbArr();
 
         for (int i = 0; i < text.length(); i++)
         {
@@ -121,34 +140,32 @@ namespace arithmetic
             {
                 if (getString(text[i]) == charProbArr[j].c)
                 {
-                    cout << text[i] << " ";
                     float tempLowLim = lim.lowLim;
                     float tempUpLim = lim.upLim;
 
                     lim.upLim = tempLowLim + (tempUpLim - tempLowLim) * charProbArr[j].p;
                     lim.lowLim = tempLowLim + (tempUpLim - tempLowLim) * charProbArr[j - 1].p;
-                    cout << lim.upLim << " " << lim.lowLim << endl;
                 }
             }
 
             if (i == text.length() - 1)
             {
                 enc = (lim.upLim + lim.lowLim) / 2;
-                cout << "ENCODED VALUE = " << enc << endl;
             }
         }
         return floatToBinary(enc);
     }
 
-    string decode(string encBinary, vector<probChar> charProbArr, int n)
+    string decode(string encBinary)
     {
         float enc = binaryToFloat(encBinary);
+        cout << enc << endl
+             << encBinary;
         string decodedStr = "";
         limits lim = {DEFAULT_LOWER_LIMIT, DEFAULT_UPPER_LIMIT};
-        cout << "\nDECODE CALLED\n";
 
         vector<probChar> dynamicLimitsArr;
-        fillLimitsArr(dynamicLimitsArr, charProbArr, n);
+        fillLimitsArr(dynamicLimitsArr);
 
         for (int i = 0; i < dynamicLimitsArr.size(); i++)
         {
