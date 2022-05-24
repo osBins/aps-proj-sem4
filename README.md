@@ -34,7 +34,7 @@ All the algorithms in our project will be divided into their own separate header
 | Simran Ahuja          | Fibonacci         |
 | Yathansh Tewatia      | LZ77              |
 
-<img src="cover6.jpg" alt="drawing" width="600"/>
+<img src="assets/meme.jpg" alt="drawing" width="600"/>
 
 ## What To do
 * All the algorithms are put in seperate files in the algorithms directory 

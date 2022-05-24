@@ -21,7 +21,7 @@ namespace arithmetic
     EVERYTHING BREAKS METHODICALLY IF YOU REMOVE THE IMMEDIATELY NEXT LINE OF CODE
     (but it still somehow gives the right encoded value????)
     */
-    // charProb["0"] = 0; //âœ¨ MAGIC âœ¨
+    // charProb["0"] = 0; //✨ MAGIC ✨
 
     // charProb["a"] = 0.4;
     // charProb["b"] = 0.2;
