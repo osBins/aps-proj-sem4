@@ -3,10 +3,11 @@
 #include "utility.h"
 using namespace std;
 
-
 comparisonResult compressFile(string filename, string algo)
 {
+
     string fileContents = readBinFile(filename);
+
     string encodedS;
     string ext;
     if (algo == "lz77")
@@ -19,13 +20,12 @@ comparisonResult compressFile(string filename, string algo)
     }
     else if (algo == "fano")
     {
-        // encodedS = shannon_fanno::encode(fileContents);
+        encodedS = shannon_fanno::encode(fileContents);
     }
-    else if (algo == "metic")
+    else if (algo == "fibonacci")
     {
-        encodedS = arithmetic::encode(fileContents);
+        encodedS = fibonacci::encode(fileContents);
     }
-
     // add option for diagram coding
 
     comparisonResult cr = getCompressionResult(fileContents, encodedS);
@@ -39,8 +39,6 @@ comparisonResult compressFile(string filename, string algo)
     return cr;
 }
 
-
-
 void handleCompression()
 {
     string filename;
@@ -52,7 +50,7 @@ void handleCompression()
          << "2. shannon-fano" << endl
          << "3. lz77" << endl
          << "4. arithmetic" << endl
-         << "5. diagram" << endl
+         << "5. fibonacci" << endl
          << "choice: ";
     string algoChoice;
     getline(cin, algoChoice);
@@ -61,6 +59,8 @@ void handleCompression()
     }
     else if (algoChoice == "2" || algoChoice == "shannon-fano")
     {
+        comparisonResult cr = compressFile(filename, "fano");
+        cout << cr << endl;
     }
     else if (algoChoice == "3" || algoChoice == "lz77")
     {
@@ -70,8 +70,10 @@ void handleCompression()
     else if (algoChoice == "4" || algoChoice == "arithmetic")
     {
     }
-    else if (algoChoice == "5" || algoChoice == "diagram")
+    else if (algoChoice == "5" || algoChoice == "fibonacci")
     {
+        comparisonResult cr = compressFile(filename, "fibonacci");
+        cout << cr << endl;
     }
     else
     {
@@ -84,23 +86,23 @@ void handleDecompression()
     string inname;
     cout << "enter name of the file to be decompressed: ";
     getline(cin, inname);
-    cout<<endl;
+    cout << endl;
 
     string encodeAlgo;
     auto it = inname.rbegin();
-    for(; it!=inname.rend(); it++)
+    for (; it != inname.rend(); it++)
     {
-        if(*it == '.')
+        if (*it == '.')
         {
             break;
         }
         encodeAlgo.push_back(*it);
     }
     it++;
-    reverse(encodeAlgo.begin(),encodeAlgo.end());
+    reverse(encodeAlgo.begin(), encodeAlgo.end());
 
     string outfileName;
-    for(; it!=inname.rend(); it++)
+    for (; it != inname.rend(); it++)
     {
         outfileName.push_back(*it);
     }
@@ -110,23 +112,20 @@ void handleDecompression()
     string bitS = byteStrToBinStr(fileContents);
 
     string decodedS;
-    if(encodeAlgo == "lz77")
+    if (encodeAlgo == "lz77")
     {
         decodedS = lz77::decode(bitS);
     }
-    else if(encodeAlgo == "huff")
+    else if (encodeAlgo == "huff")
     {
-
     }
-    else if(encodeAlgo == "fano")
+    else if (encodeAlgo == "fano")
     {
-
     }
-    else if(encodeAlgo == "metic")
+    else if (encodeAlgo == "fib")
     {
-
     }
-    writeToFile(outfileName,decodedS);
+    writeToFile(outfileName, decodedS);
 }
 
 void cli()

@@ -2,6 +2,40 @@ namespace shannon_fanno
 {
     using namespace std;
     typedef struct node node;
+    bool charToBool(char c)
+    {
+        return c == '0' ? 0 : 1;
+    }
+
+    char binSToChar(string s)
+    {
+        bitset<8> charB(0);
+        for (int i = 0; i < s.length(); i++)
+        {
+            charB[i] = charToBool(s[i]);
+        }
+        char a = (char)charB.to_ulong();
+        return a;
+    }
+
+    string binStrToByteStr(string binS)
+    {
+        string byteS;
+        int sItr = 0;
+        while (sItr < binS.length())
+        {
+            // cout<<binS.substr(sItr, 8)<<endl;
+            char c = binSToChar(binS.substr(sItr, 8));
+            byteS.push_back(c);
+            sItr += 8;
+        }
+        int extraBits = 8 - binS.length() % 8;
+        // cout<<"extra bits = "<<extraBits<<endl;
+        bitset<8> extraBitsCount(extraBits); // extra bits at the end
+        char endPadding = (char)extraBitsCount.to_ulong();
+        byteS.insert(byteS.begin(), endPadding); // inserting padding count at the begining
+        return byteS;
+    }
 
     struct node
     {
@@ -137,7 +171,7 @@ namespace shannon_fanno
         }
         return codeMap;
     }
-    string encode(unordered_map<char, string> codeMap, string text)
+    string encodeShannon(unordered_map<char, string> codeMap, string text)
     {
         string encodedS;
         for (auto x : text)
@@ -147,12 +181,88 @@ namespace shannon_fanno
         }
         return encodedS;
     }
-    string mapToByteStr(unordered_map<char,string> codeMap)
+    string codeMapToStr(unordered_map<char, string> codeMap)
     {
-        
+        string res;
+        for (auto x : codeMap)
+        {
+            res += x.first;
+            string code = x.second;
+            string padding = "";
+            for (int i = 0; i < 8 - code.length(); i++)
+            {
+                padding += '0';
+            }
+            char codeC = stoi(padding + code);
+            bitset<8> paddingAmmt(8 - code.length());
+            int paddingAmmtI = paddingAmmt.to_ulong();
+            int a = paddingAmmtI;
+            string paddingAmmtS = to_string(a);
+            bitset<8> paddingB(stoi(padding + code));
+            char paddingC = paddingB.to_ulong();
+            res += paddingAmmtS + paddingC;
+        }
+        return res;
     }
-    string decode(string text)
+    string encode(string text)
     {
+        // cout << "str len = " << text.length() << endl;
+        unordered_map<char, int> freqMap = charFreq(text);
+        unordered_map<char, float> probMap = charProb(freqMap, text.length());
+        node p[probMap.size()];
+        int itr = 0;
+        for (auto x : probMap)
+        {
+            p[itr].sym = x.first;
+            p[itr].pro = x.second;
+            itr++;
+        }
+        int n = probMap.size();
+        sortByProbability(n, p);
+
+        for (int i = 0; i < n; i++)
+            p[i].top = -1;
+        shannon(0, n - 1, p);
+        unordered_map<char, string> codeMap = charCode(p, n);
+        string encodedS = encodeShannon(codeMap, text);
+        string byteS = binStrToByteStr(encodedS);
+        string codeMapByteS = codeMapToStr(codeMap);
+        string finalString = codeMapByteS + byteS;
+        return finalString;
     }
+    pair<string, char> getCode(char chtr, char paddingCount, char code)
+    {
+        int padding = paddingCount - '0';
+        string codeS;
+        bitset<8> codeB(code);
+        string codeSTemp = codeB.to_string();
+        for (int i = padding - 1; i < 8; i++)
+        {
+            codeS += codeSTemp[i];
+        }
+        return make_pair(codeS, chtr);
+    }
+
+    // string decode(string encodedS)
+    // {
+
+    //     int charcount = encodedS[0];
+    //     int counter = 0;
+    //     string byteS;
+    //     unordered_map<string, char> codeCharMap;
+    //     int i;
+    //     for (i = 1; i < encodedS && counter < charcount; i++)
+    //     {
+    //         char chtr = encodedS[i], paddingcount = encodedS[i + 1], code = encodedS[i + 2];
+    //         pair<string, char> res = getCode(chtr, paddingcount, code);
+    //         codeCharMap[res.first] = res.second;
+    //         counter += 1;
+    //         i += 3;
+    //     }
+    //     for (i; i < encodedS; i++)
+    //     {
+    //         byteS += encodedS[i];
+    //     }
+    // }
 
 }
