@@ -1,5 +1,5 @@
 #include "algorithms/fibonacci.h"
-#include "algorithms/huffman.h"
+#include "algorithms/huffman.cpp"
 #include "algorithms/lz77.h"
 #include "algorithms/arithmetic.h"
 #include "algorithms/shannon_fano.h"

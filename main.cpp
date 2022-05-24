@@ -14,10 +14,6 @@ comparisonResult compressFile(string filename, string algo)
     {
         encodedS = lz77::encode(fileContents);
     }
-    else if (algo == "huff")
-    {
-        encodedS = huffman::encode(fileContents);
-    }
     else if (algo == "fano")
     {
         encodedS = shannon_fanno::encode(fileContents);
@@ -61,6 +57,7 @@ void handleCompression()
     getline(cin, algoChoice);
     if (algoChoice == "1" || algoChoice == "huffman")
     {
+        huffman();
     }
     else if (algoChoice == "2" || algoChoice == "shannon-fano")
     {
