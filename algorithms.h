@@ -4,10 +4,8 @@
 #include "algorithms/arithmetic.h"
 #include "algorithms/shannon_fano.h"
 
-char boolToChar(bool b)
-{
-    return b ? '1' : '0';
-}
+//fwd declarations
+char boolToChar(bool b);
 
 string stringToBinS(string s)
 {
@@ -37,21 +35,24 @@ ostream &operator<<(ostream &out, comparisonResult &cr)
         << "the original string took  : "
         << cr.originalLen
         << "bits" << endl
-        << "the encoded string took   : "
+        << "the compressed string took   : "
         << cr.encodedLen
         << "bits" << endl
         << "the compression ratio was : "
-        << cr.ratio 
-        <<"%"<< endl;
+        << cr.ratio
+        << "%" << endl;
 }
 
-comparisonResult compare(
+comparisonResult getCompressionResult(
     const string &original,
     const string &encoded)
 {
     comparisonResult cr;
     cr.originalLen = stringToBinS(original).length();
     cr.encodedLen = encoded.length();
-    cr.ratio = ((float)cr.originalLen - (float)cr.encodedLen) / (float)cr.originalLen;
+    cr.ratio = ((
+                    (float)cr.originalLen - (float)cr.encodedLen) /
+                (float)cr.originalLen) *
+               100;
     return cr;
 }

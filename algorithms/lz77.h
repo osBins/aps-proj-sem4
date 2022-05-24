@@ -1,17 +1,21 @@
 #include <bits/stdc++.h>
-#define SEARCH_BUFFER_LEN 64 // search buffer length = 2^n or n bits
+#define SEARCH_BUFFER_LEN 63 // search buffer length = 2^n-1 or n bits
 #define SEARCH_BIT_LEN 6
-#define LA_BUFFER_LEN 16 // look ahead buffer length = 2^n or n bits
+#define LA_BUFFER_LEN 15 // look ahead buffer length = 2^n-1 or n bits
 #define LA_BIT_LEN 4
 #define CHAR_BIT_LEN 8
 using namespace std;
 
 namespace lz77
 {
-    void printArr(array<char, SEARCH_BUFFER_LEN> &arr)
+    template <int len>
+    void printArr(array<char, len> &arr)
     {
         for (auto x : arr)
         {
+            if (x == '\n')
+                cout << "\\n"
+                     << ".";
             cout << x << ".";
         }
     }
@@ -99,7 +103,7 @@ namespace lz77
             << ", l:"
             << tk.length
             << ", n:"
-            << tk.next
+            << (tk.next == '\n' ? "\\n" : "" + tk.next)
             << ">";
     }
 
@@ -133,7 +137,8 @@ namespace lz77
                 res.found = true;
                 res.idx = SBItr;
                 int l = 0;
-                while (lookAheadBuffer[LABItr] == searchBuffer[SBItr])
+                while (LABItr < fillAmmount &&
+                       lookAheadBuffer[LABItr] == searchBuffer[SBItr])
                 {
                     l++;
                     LABItr++;
@@ -149,6 +154,7 @@ namespace lz77
 
     vector<Token> lz77Encode(string s)
     {
+        // s+="##";
         array<char, SEARCH_BUFFER_LEN> searchBuffer = {'\0'};
         array<char, LA_BUFFER_LEN> lookAheadBuffer = {'\0'};
         vector<Token> resultVec;
@@ -166,7 +172,7 @@ namespace lz77
             fillAmmount++;
             // cout<<"reading "<<s[sItr]<<endl;
         }
-        while (fillAmmount > 0 || sItr < s.length())
+        while (fillAmmount > 1)
         {
             // printArr<SEARCH_BUFFER_LEN>(searchBuffer);
             // cout << "|";
@@ -203,6 +209,7 @@ namespace lz77
                 {
                     lookAheadBuffer[fillAmmount] = '\0';
                 }
+                // cout << tk << endl;
                 resultVec.push_back(tk);
             }
             else
@@ -221,7 +228,7 @@ namespace lz77
                     searchBuffer[searchBuffer.size() - 1] = lookAheadBuffer[0];
                     arrShiftLeft<char, lookAheadBuffer.size()>(lookAheadBuffer);
 
-                    if (sItr <= s.length()) // if more elements left in the string
+                    if (sItr < s.length()) // if more elements left in the string
                     {
                         fillAmmount--; // as left shifted the lookAheadBuffer
                         lookAheadBuffer[fillAmmount] = s[sItr];
@@ -240,10 +247,10 @@ namespace lz77
                     arrShiftLeft<char, searchBuffer.size()>(searchBuffer);
                     searchBuffer[searchBuffer.size() - 1] = lookAheadBuffer[0];
                     arrShiftLeft<char, lookAheadBuffer.size()>(lookAheadBuffer);
-                    fillAmmount--; // as left shifted the lookAheadBuffer
 
                     if (sItr <= s.length()) // if more elements left in the string
                     {
+                        fillAmmount--; // as left shifted the lookAheadBuffer
                         lookAheadBuffer[fillAmmount] = s[sItr];
                         // cout<<"reading "<<s[sItr]<<endl;
                         sItr++;        // increment the string iterator
@@ -255,6 +262,7 @@ namespace lz77
                         fillAmmount--; // as the size of the buffer decreases;
                     }
                 }
+                // cout << tk << endl;
                 resultVec.push_back(tk);
             }
         }
@@ -308,6 +316,7 @@ namespace lz77
 
             tk.next = asciiChar;
             // cout<<charB.to_string()<<endl;
+            // cout<<tk<<endl;
             return make_pair(tk, sItr);
         }
         else // token is encoded offset,length,ascii value of next char
@@ -331,7 +340,7 @@ namespace lz77
             tk.offset = offset;
             tk.length = length;
             tk.next = asciiChar;
-
+            // cout<<tk<<endl;
             return make_pair(tk, sItr);
         }
     }
@@ -342,6 +351,7 @@ namespace lz77
         while (sItr < s.length())
         {
             pair<Token, int> tokenRes = decodeToken(sItr, s);
+            // cout<<tokenRes.first<<endl;
             sItr = tokenRes.second;
             resVec.push_back(tokenRes.first);
         }
