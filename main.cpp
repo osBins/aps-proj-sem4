@@ -22,7 +22,7 @@ comparisonResult compressFile(string filename, string algo)
     {
         encodedS = shannon_fanno::encode(fileContents);
     }
-    else if (algo == "fibonacci")
+    else if (algo == "fib")
     {
         encodedS = fibonacci::encode(fileContents);
     }
@@ -72,7 +72,8 @@ void handleCompression()
     }
     else if (algoChoice == "5" || algoChoice == "fibonacci")
     {
-        comparisonResult cr = compressFile(filename, "fibonacci");
+        cout<<"hello"<<endl;
+        comparisonResult cr = compressFile(filename, "fib");
         cout << cr << endl;
     }
     else
@@ -124,6 +125,7 @@ void handleDecompression()
     }
     else if (encodeAlgo == "fib")
     {
+        decodedS = fibonacci::decode(bitS);
     }
     writeToFile(outfileName, decodedS);
 }

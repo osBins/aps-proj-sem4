@@ -42,7 +42,7 @@ namespace fibonacci
     }
     int largestFibonacci(int n)
     {
-        
+
         fib[0] = 1;
         fib[1] = 2;
         int i;
@@ -108,13 +108,50 @@ namespace fibonacci
         {
             for (int j = 0; j < 12; j++)
             {
-                s+=to_string(fibonacci[i][j]); 
+                s += to_string(fibonacci[i][j]);
             }
         }
         return s;
     }
+    string byteStrToBinStr(string byteS)
+    {
+        char endPadding;
+        int sItr = 0;
+        endPadding = byteS[sItr];
+        // cout<<(int)endPadding;
+        sItr++;
+        string bitS;
+        for (; sItr < byteS.length(); sItr++)
+        {
+            // cout<<byteS[sItr];
+            bitset<8> bits(byteS[sItr]);
+            string temp = bits.to_string();
+            reverse(temp.begin(), temp.end());
+            bitS += temp;
+        }
+        bitS = bitS.substr(0, bitS.length() - endPadding);
+        return bitS;
+    }
     string decode(string text)
     {
-        // string s1 = byteStrToBinStr(text);
+        largestFibonacci(120);
+        int encodedLength = text.length();
+        string decodedS;
+        for (int j = 0; j < encodedLength; j = j + 12)
+        {
+
+            int ascii = 0;
+            for (int k = 0; k < 12; k++)
+            {
+
+                if (text[k + j] == '1')
+                {
+                    ascii = ascii + fib[k];
+                }
+            }
+
+            decodedS+=char(ascii);
+        }
+        return decodedS;
     }
 }
