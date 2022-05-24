@@ -158,6 +158,8 @@ namespace arithmetic
 
     string decode(string encBinary)
     {
+        cumProb();
+        createCumProbArr();
         float enc = binaryToFloat(encBinary);
         cout << enc << endl
              << encBinary;
