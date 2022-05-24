@@ -34,6 +34,8 @@ All the algorithms in our project will be divided into their own separate header
 | Simran Ahuja          | Fibonacci         |
 | Yathansh Tewatia      | LZ77              |
 
+![](/cover6.jpg)
+
 ## What To do
 * All the algorithms are put in seperate files in the algorithms directory 
 * Each file has a encode and decode function in them which are wrapped in their respective namespaces
