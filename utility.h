@@ -98,6 +98,10 @@ string byteStrToBinStr(string byteS)
     char endPadding;
     int sItr = 0;
     endPadding = byteS[sItr];
+    if(endPadding == 8)
+    {
+        endPadding = 0;
+    }
     // cout<<(int)endPadding;
     sItr++;
     string bitS;

@@ -26,11 +26,16 @@ comparisonResult compressFile(string filename, string algo)
     {
         encodedS = fibonacci::encode(fileContents);
     }
+    else if(algo == "metic")
+    {
+        encodedS = arithmetic::encode(fileContents);
+    }
     // add option for diagram coding
 
     comparisonResult cr = getCompressionResult(fileContents, encodedS);
+    // cout<<encodedS<<endl;
     string byteS = binStrToByteStr(encodedS);
-
+    // cout<<byteStrToBinStr(byteS)<<endl;
     string outfile;
     outfile += filename;
     outfile += ".";
@@ -69,10 +74,11 @@ void handleCompression()
     }
     else if (algoChoice == "4" || algoChoice == "arithmetic")
     {
+        comparisonResult cr = compressFile(filename, "metic");
+        cout << cr << endl;
     }
     else if (algoChoice == "5" || algoChoice == "fibonacci")
     {
-        cout<<"hello"<<endl;
         comparisonResult cr = compressFile(filename, "fib");
         cout << cr << endl;
     }
@@ -111,7 +117,6 @@ void handleDecompression()
 
     string fileContents = readBinFile(inname);
     string bitS = byteStrToBinStr(fileContents);
-
     string decodedS;
     if (encodeAlgo == "lz77")
     {
@@ -126,6 +131,10 @@ void handleDecompression()
     else if (encodeAlgo == "fib")
     {
         decodedS = fibonacci::decode(bitS);
+    }
+    else if(encodeAlgo == "metic")
+    {
+        decodedS = arithmetic::decode(bitS);
     }
     writeToFile(outfileName, decodedS);
 }
