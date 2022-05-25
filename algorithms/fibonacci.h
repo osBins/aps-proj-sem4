@@ -134,7 +134,7 @@ namespace fibonacci
     }
     string decode(string text)
     {
-        largestFibonacci(120);
+        largestFibonacci(144);
         int encodedLength = text.length();
         string decodedS;
         for (int j = 0; j < encodedLength; j = j + 12)
