@@ -36,6 +36,8 @@ comparisonResult compressFile(string filename, string algo)
     outfile += filename;
     outfile += ".";
     outfile += algo;
+    cout<<endl;
+    cout<<"compressed file: "<<outfile<<endl;
     writeToFile(outfile, byteS);
     return cr;
 }
